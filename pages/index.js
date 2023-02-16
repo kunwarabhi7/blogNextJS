@@ -1,4 +1,3 @@
-import NavBar from "@/components/NavBar";
 import { auth } from "@/utils/firebase";
 
 import Head from "next/head"
@@ -21,7 +20,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
      <div>
-     <NavBar />
      </div>
     </>
   )
