@@ -1,5 +1,6 @@
+import NavBar from "@/components/NavBar";
 import { auth } from "@/utils/firebase";
-import { signOut } from "firebase/auth";
+
 import Head from "next/head"
 import {useAuthState } from 'react-firebase-hooks/auth'
 import Login from '../components/Login'
@@ -22,8 +23,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
      <div className="text-red-500">
-      HEy baby 
-      <button onClick={logout}>SignOut</button>
+     <NavBar />
      </div>
     </>
   )
