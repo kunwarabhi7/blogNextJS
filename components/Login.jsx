@@ -17,7 +17,7 @@ try{
 
   return (
     <div className='flex h-screen justify-center bg-black items-center'>
-        <button onClick={signInWithGoogle} className='bg-cyan-800 flex   text-white font-bold text-7xl'>Login With  <FcGoogle size={100}/>
+        <button onClick={signInWithGoogle} className='bg-cyan-800 flex p-8 rounded-3xl  text-white font-bold text-7xl'>Login With  <FcGoogle size={100}/>
          </button>
       
     </div>
