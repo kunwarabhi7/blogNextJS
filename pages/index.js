@@ -1,5 +1,18 @@
+import { auth } from "@/utils/firebase";
+import { signOut } from "firebase/auth";
 import Head from "next/head"
+import {useAuthState } from 'react-firebase-hooks/auth'
+import Login from '../components/Login'
+
+
 export default function Home() {
+  const [user, loading, error] = useAuthState(auth);
+
+  if(!user) return <Login />
+ 
+  const logout = () => {
+    signOut(auth);
+  };
   return (
     <>
       <Head>
@@ -10,6 +23,7 @@ export default function Home() {
       </Head>
      <div className="text-red-500">
       HEy baby 
+      <button onClick={logout}>SignOut</button>
      </div>
     </>
   )
