@@ -28,10 +28,10 @@ onSnapshot(q,(snapshot)=>{
   ,[])
 
   return (
-   <>
+   <div className='md:flex '>
     {
       posts.map((post)=>(
-        <div  key={post.id}>
+        <div className='' key={post.id}>
           <BlogTemplate key={post.id} title={post.title} imageUrl={post.imageUrl} createdAt={post.createdAt.toDate().toDateString()} content={post.content}  />
        
         </div>
@@ -40,7 +40,7 @@ onSnapshot(q,(snapshot)=>{
         )
       }
 
-      </>
+      </div>
   )
   
 }

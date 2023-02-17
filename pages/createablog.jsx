@@ -16,10 +16,12 @@ const createablog = () => {
   const [progressBar, setProgressBar] = useState(0);
 
   const handleChange = (e) => {
+    e.preventDefault()
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleImageChange = (e) => {
+    e.preventDefault()
     setFormData({ ...formData, image: e.target.files[0] });
   };
 
@@ -34,6 +36,8 @@ const createablog = () => {
       `/images/${Date.now()}${formData.image.name}`
     );
     const uploadedImage = uploadBytesResumable(storageRef, formData.image);
+    alert('Photo Uploaded')
+
 
     uploadedImage.on(
       "state_changed",
@@ -53,7 +57,7 @@ const createablog = () => {
           image: "",
         });
         getDownloadURL(uploadedImage.snapshot.ref).then((url) => {
-          const postRef = collection(db, "post");
+          const postRef = collection(db, "blog");
           addDoc(postRef, {
             title: formData.title,
             content: formData.content,
