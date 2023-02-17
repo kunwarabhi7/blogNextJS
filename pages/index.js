@@ -1,3 +1,4 @@
+import BlogTemplate from "@/components/BlogTemplate";
 import { auth } from "@/utils/firebase";
 
 import Head from "next/head"
@@ -20,6 +21,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
      <div>
+
      </div>
     </>
   )
