@@ -28,10 +28,10 @@ onSnapshot(q,(snapshot)=>{
   ,[])
 
   return (
-   <div className='md:flex '>
+   <div className='md:flex dark:bg-gray-900 h-full w-full mt-20 m-16 justify-between'>
     {
       posts.map((post)=>(
-        <div className='' key={post.id}>
+        <div className='w-full' key={post.id}>
           <BlogTemplate key={post.id} title={post.title} imageUrl={post.imageUrl} createdAt={post.createdAt.toDate().toDateString()} content={post.content}  />
        
         </div>

@@ -1,33 +1,34 @@
+import { auth } from '@/utils/firebase';
 import Image from 'next/image'
 import React from 'react'
 
+import { useAuthState } from 'react-firebase-hooks/auth';
 function BlogTemplate({title, content , imageUrl ,createdAt  }) {
+  const [user] = useAuthState(auth);
+
   return (
-          <div className=" mt-48 md:mt-40 lg:mt-24       px-4 md:w-1/2 lg:w-1/3  ">
-            <div className="mb-8 rounded">
-              <Image
-                src={imageUrl}
-                alt="image"
-                className="" width={400} height={400}
-              />
-            </div>
-            
-            <div
-                  className="text-white rounded-full bg-cyan-600 p-2  hover:text-primary mb-4 inline-block text-xl font-semibold sm:text-2xl lg:text-xl xl:text-xl"
-                >
-                  {createdAt}
-                </div>
-              <h3>
-                <div
-                  className="text-dark hover:text-primary mb-4 inline-block text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
-                >
-                  {title}
-                </div>
-              </h3>
-              <p className="text-body-color text-base">
-                {content}
-              </p>
-            </div>
+         
+<div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+    <a href="#">
+        <img className="rounded-t-lg h-96 w-full" src={imageUrl} alt={title} />
+    </a>
+    <div className="p-5 my-2">
+      <div className='flex justify-between'>
+
+      <h1 className='text-right bg-cyan-400 text-white w-32 px-6 py-1 rounded-full'>{user?.displayName}</h1>
+      <h1 className='text-right bg-cyan-400 text-white w-32 p-2 rounded-full'>{createdAt}</h1>
+      </div>
+        <a href="#">
+            <h5 className="mb-2 mt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
+        </a>
+        <p className="mb-3 h-14 font-normal  text-gray-700 dark:text-gray-400 truncate ">{content}</p>
+        <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Read more
+            <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </a>
+    </div>
+</div>
+
          
       
        
