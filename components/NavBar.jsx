@@ -25,7 +25,7 @@ const NavBar = () => {
   <div className="items-center justify-between  w-full md:w-auto md:order-1" id="navbar-sticky">
     <ul className="flex flex-row p-4 mt-3 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
       <li className=' flex py-2 pl-3 pr-4 text-white  rounded md:bg-transparent  md:p-0 dark:text-white"'>
-        <h1 className='mt-2' >Welcome {user.displayName} </h1>
+        <h1 className='mt-2' >Welcome , {user.displayName} </h1>
       <img src={user.photoURL} className=" w-9  mx-4 mr-3 sm:h-9 rounded-full" alt="Flowbite Logo" />
 
       </li>

@@ -2,20 +2,19 @@ import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
 
-import { useAuthState } from 'react-firebase-hooks/auth';
 function BlogTemplate({title, content , imageUrl ,createdAt ,id ,createdBy}) {
 
   return (
          
-<div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+<div className=" bg-white border border-gray-200 w-full rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
     <a href="#">
         <img className="rounded-t-lg h-96 w-full" src={imageUrl} alt={title} />
     </a>
     <div className="p-5 my-2">
       <div className='flex justify-between'>
 
-      <h1 className='text-right bg-cyan-400 text-white w-32 px-6 py-1 rounded-full'>{createdBy}</h1>
-      <h1 className='text-right bg-cyan-400 text-white w-32 p-2 rounded-full'>{createdAt}</h1>
+      <h1 className='text-white'>{createdBy}</h1>
+      <h1 className='text-white'>{createdAt}</h1>
       </div>
         <a href="#">
             <h5 className="mb-2 mt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
