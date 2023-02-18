@@ -32,7 +32,7 @@ onSnapshot(q,(snapshot)=>{
     {
       posts.map((post)=>(
         <div className='w-full' key={post.id}>
-          <BlogTemplate key={post.id} title={post.title} imageUrl={post.imageUrl} createdAt={post.createdAt.toDate().toDateString()} content={post.content}  />
+          <BlogTemplate key={post.id} id={post.id} title={post.title} imageUrl={post.imageUrl} createdAt={post.createdAt.toDate().toDateString()} content={post.content}  />
        
         </div>
         )
