@@ -7,8 +7,6 @@ import React, { useState ,useEffect} from 'react'
 
 const Blogs = () => {
   const [posts, setPosts] = useState([])
-  console.log(posts)
-
 
   useEffect(()=>{
   
@@ -20,7 +18,6 @@ onSnapshot(q,(snapshot)=>{
     ...doc.data()
   }));
   setPosts(articles);
-  console.log(articles);
 })
   
   }
@@ -28,11 +25,11 @@ onSnapshot(q,(snapshot)=>{
   ,[])
 
   return (
-   <div className='md:flex dark:bg-gray-900 h-full w-full mt-20 m-16 justify-between'>
+   <div className='grid grid-cols-1 md:grid-cols-3 dark:bg-gray-900 h-full w-full mt-44 m-16 justify-between'>
     {
       posts.map((post)=>(
-        <div className='w-full' key={post.id}>
-          <BlogTemplate key={post.id} id={post.id} title={post.title} imageUrl={post.imageUrl} createdAt={post.createdAt.toDate().toDateString()} content={post.content}  />
+        <div className='w-full my-4' key={post.id}>
+          <BlogTemplate key={post.id} createdBy={post.createdBy} id={post.id} title={post.title} imageUrl={post.imageUrl} createdAt={post.createdAt.toDate().toDateString()} content={post.content}  />
        
         </div>
         )

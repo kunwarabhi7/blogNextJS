@@ -1,11 +1,17 @@
 import NavBar from "@/components/NavBar";
-import { db, storage } from "@/utils/firebase";
+import { auth, db, storage } from "@/utils/firebase";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const createablog = () => {
+  const router = useRouter();
+  const [user] = useAuthState(auth);
+  const [progressBar, setProgressBar] = useState(0);
+
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -13,19 +19,19 @@ const createablog = () => {
     createdAt: Timestamp.now().toDate(),
   });
 
-  const [progressBar, setProgressBar] = useState(0);
-
+  console.log(progressBar);
   const handleChange = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleImageChange = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setFormData({ ...formData, image: e.target.files[0] });
   };
 
-  const PostBlog = () => {
+  const PostBlog = (e) => {
+    e.preventDefault();
     if (!formData.title || !formData.content || !formData.image) {
       alert("Please fill all fields");
       return;
@@ -35,27 +41,22 @@ const createablog = () => {
       storage,
       `/images/${Date.now()}${formData.image.name}`
     );
-    const uploadedImage = uploadBytesResumable(storageRef, formData.image);
-    alert('Photo Uploaded')
 
+    const uploadedImage = uploadBytesResumable(storageRef, formData.image);
 
     uploadedImage.on(
       "state_changed",
-      ((snapshot) => {
-        const ProgressBarValue = Math.round(
+      (snapshot) => {
+        const progressPercent = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        setProgressBar(ProgressBarValue);
+        setProgressBar(progressPercent);
       },
       (err) => {
         console.log(err);
       },
       () => {
-        setFormData({
-          title: "",
-          description: "",
-          image: "",
-        });
+        
         getDownloadURL(uploadedImage.snapshot.ref).then((url) => {
           const postRef = collection(db, "blog");
           addDoc(postRef, {
@@ -63,17 +64,22 @@ const createablog = () => {
             content: formData.content,
             imageUrl: url,
             createdAt: Timestamp.now().toDate(),
+            createdBy: user.displayName,
+            userId: user.uid,
+            likes: [],
+            comments: [],
           })
             .then(() => {
               alert("Posted Successfully");
-              setProgressBar(0);
+              
             })
             .catch((err) => {
               console.log(err);
             });
-        });
-      })
-    );
+          });
+        })
+        ;
+        router.push("/blog");
   };
 
   return (
@@ -91,7 +97,6 @@ const createablog = () => {
             type="text"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=""
-            required
             value={formData.title}
             name="title"
             onChange={(e) => handleChange(e)}
@@ -114,7 +119,7 @@ const createablog = () => {
           id="message"
           rows="4"
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Leave a comment..."
+          placeholder="Write something in detail..."
         ></textarea>
 
         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -125,25 +130,25 @@ const createablog = () => {
           type="file"
           accept="image/*"
           name="image"
-          
           onChange={(e) => handleImageChange(e)}
         />
         <div
           className="mt-1 text-sm text-gray-500 dark:text-gray-300"
           id="user_avatar_help"
         >
-          A profile picture is useful to confirm your are logged into your
-          account
+         
         </div>
-        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700 my-5">
-          <div
-            class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
-            style={{ width: `${progressBar}%` }}
-          >
-            {" "}
-            {progressBar}
+        {progressBar === 0 ? null : (
+          <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700 my-5">
+            <div
+              className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+              style={{ width: `${progressBar}%` }}
+            >
+              {" "}
+              {`uploadinh Image ${progressBar}`}
+            </div>
           </div>
-        </div>
+        )}
         <button
           onClick={PostBlog}
           type="submit"

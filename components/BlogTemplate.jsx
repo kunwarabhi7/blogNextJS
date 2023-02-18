@@ -1,11 +1,9 @@
-import { auth } from '@/utils/firebase';
 import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-function BlogTemplate({title, content , imageUrl ,createdAt ,id }) {
-  const [user] = useAuthState(auth);
+function BlogTemplate({title, content , imageUrl ,createdAt ,id ,createdBy}) {
 
   return (
          
@@ -16,7 +14,7 @@ function BlogTemplate({title, content , imageUrl ,createdAt ,id }) {
     <div className="p-5 my-2">
       <div className='flex justify-between'>
 
-      <h1 className='text-right bg-cyan-400 text-white w-32 px-6 py-1 rounded-full'>{user?.displayName}</h1>
+      <h1 className='text-right bg-cyan-400 text-white w-32 px-6 py-1 rounded-full'>{createdBy}</h1>
       <h1 className='text-right bg-cyan-400 text-white w-32 p-2 rounded-full'>{createdAt}</h1>
       </div>
         <a href="#">
