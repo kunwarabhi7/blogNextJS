@@ -28,7 +28,7 @@ const NavBar = () => {
         <h1 className='mt-2 text-sm bg-gray-900 text-white  md:text-base' >Welcome, {user.displayName} </h1>
       <img src={user?.photoURL} className=" w-9 sm:w-9  mx-4 mr-3 h-9 mt-4 sm:h-9 md:mt-2 rounded-full" alt="Image" />
 
-      </li>/
+      </li>
       <li>
         <Link href="/blog" className="block py-2 pl-3 mt-2 pr-4 bg-gray-900  rounded   md:p-0 text-white" aria-current="page">Blogs</Link>
       </li>
